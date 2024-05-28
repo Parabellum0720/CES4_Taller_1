@@ -4,12 +4,16 @@ import { useState } from 'react';
 import { UserContext } from './UserContext';
 
 const UserProvider = ({ children }) => {
+	const successUser = {
+		email: 'admin@gmail.com',
+		password: 'admin',
+	};
 	const [user, setUser] = useState({
-		id: 10,
-		name: 'Juan',
+		email: '',
+		password: '',
 	});
 	return (
-		<UserContext.Provider value={{ user, setUser, message: 'hola' }}>
+		<UserContext.Provider value={{ user, setUser, successUser }}>
 			{children}
 		</UserContext.Provider>
 	);
