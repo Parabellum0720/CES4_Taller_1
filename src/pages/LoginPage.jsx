@@ -1,11 +1,13 @@
-import React from 'react';
 import LoginForm from '../components/LoginForm';
 
 const LoginPage = () => {
 	return (
-		<main>
+		<section
+			style={{ height: '100vh' }}
+			className='d-flex justify-content-center align-items-center'
+		>
 			<LoginForm />
-		</main>
+		</section>
 	);
 };
 
