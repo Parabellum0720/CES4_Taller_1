@@ -37,6 +37,8 @@ module.exports = {
 			"args": "after-used",
 			"caughtErrors": "all",
 			"ignoreRestSiblings": false
-		}]
+		}],
+		'react/prop-types': 'off'
+		
 	},
 };

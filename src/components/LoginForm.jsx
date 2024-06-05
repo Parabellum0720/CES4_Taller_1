@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-const LoginForm = () => {
-	const { user, setUser, successUser, setIsLogin } = useContext(UserContext);
+
+const LoginForm = ({ type }) => {
+	const { user, setUser, registeredUsers, setRegisteredUsers, setIsLogin } =
+		useContext(UserContext);
 	const navigate = useNavigate();
 	const onChangeValue = e => {
 		const { name, value } = e.target;
@@ -14,18 +16,46 @@ const LoginForm = () => {
 
 	const submitInfo = e => {
 		e.preventDefault();
-		if (
-			user.email === successUser.email &&
-			user.password === successUser.password
-		) {
+		let foundUser;
+		if (type === 'login') {
+			foundUser = registeredUsers.find(
+				registeredUser =>
+					registeredUser.email === user.email &&
+					registeredUser.password === user.password,
+			);
+		} else if (type === 'signup') {
+			foundUser = registeredUsers.find(
+				registeredUser => registeredUser.email === user.email,
+			);
+		}
+
+		console.log('foundUser', foundUser);
+		if (type === 'login' && foundUser) {
 			setIsLogin(true);
 			navigate('/');
-		} else {
+		} else if (type === 'login' && !foundUser) {
 			setUser({
 				email: '',
 				password: '',
 			});
 			alert('Credenciales incorrectas!');
+		} else if (type === 'signup' && !foundUser) {
+			setRegisteredUsers([
+				...registeredUsers,
+				{
+					email: user.email,
+					password: user.password,
+				},
+			]);
+			alert(`El email: ${user.email} ha sido registrado exitosamente.`);
+			setIsLogin(true);
+			navigate('/');
+		} else if (type === 'signup' && foundUser) {
+			alert('El usuario ya se encuentra registrado!');
+			setUser({
+				email: '',
+				password: '',
+			});
 		}
 	};
 
@@ -54,7 +84,7 @@ const LoginForm = () => {
 						<input
 							className='form-control'
 							value={user.password}
-							type='password'
+							type={type === 'login' ? 'password' : 'text'}
 							name='password'
 							onChange={e => onChangeValue(e)}
 						/>

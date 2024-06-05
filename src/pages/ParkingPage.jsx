@@ -1,14 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import ParkingForm from '../components/ParkingForm';
 import VehicleSelection from '../components/VehicleSelection';
 import { ParkingContext } from '../context/ParkingContext';
 
 const ParkingPage = () => {
-	const { vehicleType } = useContext(ParkingContext);
+	const { vehicleType, setVehicleType } = useContext(ParkingContext);
+
+	useEffect(() => {
+		setVehicleType('');
+	}, []);
+
 	return (
 		<section
-			style={{ height: '100vh' }}
-			className='d-flex justify-content-center align-items-center'
+			style={{ height: '80vh' }}
+			className='d-flex flex-column justify-content-center align-items-center'
 		>
 			{vehicleType !== '' ? <ParkingForm /> : <VehicleSelection />}
 		</section>

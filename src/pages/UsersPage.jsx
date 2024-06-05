@@ -1,8 +1,11 @@
+import UserTable from '../components/UserTable';
+
 const UsersPage = () => {
 	return (
-		<div>
-			<h2>List Users</h2>
-		</div>
+		<section className='d-flex flex-column justify-content-center align-items-center'>
+			<h1>Empleados registrado</h1>
+			<UserTable />
+		</section>
 	);
 };
 

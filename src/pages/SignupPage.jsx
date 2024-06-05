@@ -1,17 +1,17 @@
 import LoginForm from '../components/LoginForm';
 
-const LoginPage = () => {
+const SignupPage = () => {
 	return (
 		<section
 			style={{ height: '80vh' }}
 			className='d-flex flex-column justify-content-center align-items-center'
 		>
 			<div className='d-flex flex-column align-items-center'>
-				<h1>Iniciar sesión</h1>
-				<LoginForm type='login' />
+				<h1>Registrar empleado</h1>
+				<LoginForm type='signup' />
 			</div>
 		</section>
 	);
 };
 
-export default LoginPage;
+export default SignupPage;
