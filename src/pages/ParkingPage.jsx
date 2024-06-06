@@ -1,21 +1,25 @@
-import { useContext, useEffect } from 'react';
-import ParkingForm from '../components/ParkingForm';
-import VehicleSelection from '../components/VehicleSelection';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { ParkingContext } from '../context/ParkingContext';
+import ParkingLot from '../components/ParkingLot';
 
 const ParkingPage = () => {
-	const { vehicleType, setVehicleType } = useContext(ParkingContext);
-
-	useEffect(() => {
-		setVehicleType('');
-	}, []);
+	const { cells } = useContext(ParkingContext);
 
 	return (
 		<section
 			style={{ height: '80vh' }}
 			className='d-flex flex-column justify-content-center align-items-center'
 		>
-			{vehicleType !== '' ? <ParkingForm /> : <VehicleSelection />}
+			<ParkingLot cells={cells} />
+			<div
+				style={{ width: '100vw', marginTop: '2rem' }}
+				className='d-flex justify-content-center'
+			>
+				<Link className='btn btn-success' to='/vehicle'>
+					Ingreso de vehiculo
+				</Link>
+			</div>
 		</section>
 	);
 };

@@ -38,7 +38,8 @@ module.exports = {
 			"caughtErrors": "all",
 			"ignoreRestSiblings": false
 		}],
-		'react/prop-types': 'off'
-		
+		'react/prop-types': 'off',
+		'no-unneeded-ternary': 'off'
+
 	},
 };

@@ -8,6 +8,7 @@ import ParkingPage from './pages/ParkingPage';
 import { useContext } from 'react';
 import ParkingProvider from './context/ParkingProvider';
 import { UserContext } from './context/UserContext';
+import VehiclePage from './pages/VehiclePage';
 
 const App = () => {
 	const { isLogin } = useContext(UserContext);
@@ -24,6 +25,9 @@ const App = () => {
 							<Link className='btn btn-success' to='/users'>
 								Empleados
 							</Link>
+							<Link className='btn btn-primary' to='/'>
+								Parqueadero
+							</Link>
 							<UserCard />
 						</nav>
 
@@ -35,6 +39,8 @@ const App = () => {
 							<Route path='/login' element={<LoginPage />} />
 							<Route path='/signup' element={<SignupPage />} />
 							<Route path='/users' element={<UsersPage />} />
+							<Route path='/vehicle' element={<VehiclePage />} />
+							<Route path='/vehicle/:id' element={<VehiclePage />} />
 							<Route path='/*' element={<NotFound />} />
 						</Routes>
 					</ParkingProvider>

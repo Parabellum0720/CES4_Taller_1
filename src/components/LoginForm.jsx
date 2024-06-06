@@ -67,6 +67,18 @@ const LoginForm = ({ type }) => {
 				onSubmit={e => submitInfo(e)}
 			>
 				<div className='mb-3'>
+					<label className='form-label'>Documento</label>
+					<div className='input-group'>
+						<input
+							className='form-control'
+							value={user.document === 0 ? null : user.document}
+							type='number'
+							name='document'
+							onChange={e => onChangeValue(e)}
+						/>
+					</div>
+				</div>
+				<div className='mb-3'>
 					<label className='form-label'>Email</label>
 					<div className='input-group'>
 						<input
