@@ -1,8 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { ParkingContext } from '../context/ParkingContext';
 
-const VehicleInput = ({ setSearch }) => {
+const VehicleInput = ({ search = '', setSearch }) => {
 	const { vehicles } = useContext(ParkingContext);
+
+	useEffect(() => {
+		if (search == '') {
+			setLetters('');
+			setNumbers('');
+		}
+	}, [search]);
 
 	const [letters, setLetters] = useState('');
 	const [numbers, setNumbers] = useState('');
@@ -26,7 +33,7 @@ const VehicleInput = ({ setSearch }) => {
 	const handleNumbersChange = e => {
 		const value = e.target.value.toUpperCase();
 		// Permitir que el usuario borre el contenido
-		if (value === '' || /^\d{0,2}[A-H]?$|^\d{0,3}$/.test(value)) {
+		if (value == '' || /^\d{0,2}[A-H]?$|^\d{0,3}$/.test(value)) {
 			setNumbers(value);
 		}
 	};

@@ -17,11 +17,11 @@ const ParkingCell = ({ index, hasVehicle }) => {
 
 	const onSubmit = () => {
 		if (hasVehicle) {
-			navigate(`/vehicle/${index}`);
+			navigate(`/vehicle/${cellsDetails[index].plate}`);
 		} else if (!hasVehicle) {
 			if (plate) {
-				const plateExists = cellsDetails.find(cell => cell.plate === plate);
-				if (!plateExists) {
+				const plateExists = cellsDetails.filter(cell => cell.plate == plate);
+				if (plateExists.lenght == 1) {
 					onChangeCells(index);
 					addVehicleToCell(index);
 				} else {

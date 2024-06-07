@@ -17,13 +17,9 @@ const UserProvider = ({ children }) => {
 		},
 	]);
 
-	const [user, setUser] = useState({
-		document: 0,
-		email: '',
-		password: '',
-	});
+	const [user, setUser] = useState();
 
-	const [isLogin, setIsLogin] = useState(true);
+	const [isLogin, setIsLogin] = useState(false);
 	return (
 		<UserContext.Provider
 			value={{

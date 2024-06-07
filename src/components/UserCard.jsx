@@ -7,6 +7,7 @@ const UserCard = () => {
 
 	const logout = () => {
 		setUser({
+			document: 0,
 			email: '',
 			password: '',
 		});
@@ -29,7 +30,7 @@ const UserCard = () => {
 						<img style={{ height: '2rem' }} src={FaUser} alt='user-solid.svg' />
 					</div>
 					<div className='d-flex flex-column'>
-						<p className='m-0'>{user.email.split('@')[0]}</p>
+						<p className='m-0'>{user?.email.split('@')[0]}</p>
 						<p
 							onClick={logout}
 							style={{ color: 'blue', cursor: 'pointer' }}

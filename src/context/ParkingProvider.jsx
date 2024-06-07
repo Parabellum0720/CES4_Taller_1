@@ -11,7 +11,7 @@ const ParkingProvider = ({ children }) => {
 		model: '',
 		brand: '',
 	});
-	const [plate, setPlate] = useState('ASD123');
+	const [plate, setPlate] = useState('');
 	const [vehicleType, setVehicleType] = useState('');
 	const cellsLength = 24;
 	// Inicializa el estado con un arreglo de longitud `cellsLength`, lleno de `false` (celdas vacías).
@@ -30,13 +30,13 @@ const ParkingProvider = ({ children }) => {
 	]);
 
 	const onChangeCells = index => {
-		setCells(cells.map((cell, i) => (i === index ? !cell : cell)));
+		setCells(cells.map((cell, i) => (i == index ? !cell : cell)));
 	};
 
 	const addVehicleToCell = index => {
-		const vehicle = vehicles.find(v => v.plate === plate);
+		const vehicle = vehicles.filter(v => v.plate == plate);
 		setCellsDetails(
-			cellsDetails.map((detail, i) => (i === index ? vehicle : detail)),
+			cellsDetails.map((detail, i) => (i == index ? vehicle[0] : detail)),
 		);
 	};
 

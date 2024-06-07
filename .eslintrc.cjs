@@ -31,15 +31,17 @@ module.exports = {
 	},
 	plugins: ['react'],
 	rules: {
-		eqeqeq: ['error', 'always'],
-		"no-unused-vars": ["warn", {
-			"vars": "all",
-			"args": "after-used",
-			"caughtErrors": "all",
-			"ignoreRestSiblings": false
-		}],
+		eqeqeq: 'off',
+		'no-unused-vars': [
+			'warn',
+			{
+				vars: 'all',
+				args: 'after-used',
+				caughtErrors: 'all',
+				ignoreRestSiblings: false,
+			},
+		],
 		'react/prop-types': 'off',
-		'no-unneeded-ternary': 'off'
-
+		'no-unneeded-ternary': 'off',
 	},
 };

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
+import vehicle from '../assets/vehicle.svg';
 
 const UserTable = () => {
 	const { registeredUsers } = useContext(UserContext);
@@ -9,15 +10,20 @@ const UserTable = () => {
 			<table className='table table-striped'>
 				<thead>
 					<tr>
-						<th scope='col'>#</th>
+						<th scope='col'>Documento</th>
 						<th scope='col'>Correo</th>
 					</tr>
 				</thead>
 				<tbody>
 					{registeredUsers.map((user, index) => (
 						<tr key={index}>
-							<td>{index + 1}</td>
+							<td>{user.document}</td>
 							<td>{user.email}</td>
+							<td>
+								<Link className='btn' to={`/user/${user.document}`}>
+									<img style={{ width: '2rem' }} src={vehicle} alt='car' />
+								</Link>
+							</td>
 						</tr>
 					))}
 				</tbody>

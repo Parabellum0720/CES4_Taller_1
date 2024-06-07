@@ -15,7 +15,7 @@ const ParkingForm = () => {
 	const { registeredUsers } = useContext(UserContext); // Obtener los usuarios registrados del contexto
 	const [search, setSearch] = useState('');
 
-	const brandSelect = vehicleType === 'car' ? brands : bykeBrands;
+	const brandSelect = vehicleType == 'car' ? brands : bykeBrands;
 
 	useEffect(() => {
 		setForm({
@@ -34,37 +34,38 @@ const ParkingForm = () => {
 
 	const submitInfo = e => {
 		e.preventDefault();
-
-		if (vehicleType === 'car') {
+		if (vehicleType == 'car') {
 			if (
-				form.plate === '' &&
-				form.document === 0 &&
-				form.model === '' &&
-				form.brand === ''
+				form.plate == '' ||
+				form.document == null ||
+				form.model == '' ||
+				form.brand == ''
 			) {
 				alert('¡Diligencia todos los datos!');
+				setSearch('');
 				return false;
 			}
-		} else if (vehicleType === 'bike') {
+		} else if (vehicleType == 'bike') {
 			if (
-				form.plate === '' &&
-				form.document === 0 &&
-				form.cc === '' &&
-				form.brand === ''
+				form.plate == '' ||
+				form.document == null ||
+				form.cc == '' ||
+				form.brand == ''
 			) {
 				alert('¡Diligencia todos los datos!');
+				setSearch('');
 				return false;
 			}
 		}
 
-		const plateExists = vehicles.find(vehicle => vehicle.plate === form.plate);
-		const documentExists = registeredUsers.find(
-			user => user.document === parseInt(form.document),
+		const plateExists = vehicles.filter(vehicle => vehicle.plate == form.plate);
+		const documentExists = registeredUsers.filter(
+			user => user.document == parseInt(form.document),
 		);
-		if (plateExists) {
+		if (plateExists.lenght == 1) {
 			alert('La placa ya existe. Por favor, ingrese una placa única.');
-		} else if (!plateExists) {
-			if (documentExists) {
+		} else if (plateExists.lenght == 0) {
+			if (documentExists.lenght == 1) {
 				setVehicles([
 					...vehicles,
 					{
@@ -75,9 +76,9 @@ const ParkingForm = () => {
 						brand: form.brand,
 					},
 				]);
-				const type = vehicleType === 'car' ? 'el vehiculo' : 'la moto';
+				const type = vehicleType == 'car' ? 'el vehiculo' : 'la moto';
 				alert(`Se ha registrado con exito ${type} con placa ${form.plate}`);
-			} else if (!documentExists) {
+			} else if (documentExists.lenght == 0) {
 				alert('El documento ingresado no existe');
 			}
 		}
@@ -97,9 +98,9 @@ const ParkingForm = () => {
 			>
 				<div className='mb-3'>
 					<label className='form-label'>Número de placa:</label>
-					<VehicleInput setSearch={setSearch} />
+					<VehicleInput search={search} setSearch={setSearch} />
 				</div>
-				{vehicleType === 'bike' && (
+				{vehicleType == 'bike' && (
 					<div className='mb-3'>
 						<label className='form-label'>Marca del vehículo</label>
 						<div className='input-group'>
@@ -119,7 +120,7 @@ const ParkingForm = () => {
 						</div>
 					</div>
 				)}
-				{vehicleType === 'car' && (
+				{vehicleType == 'car' && (
 					<div className='mb-3'>
 						<label className='form-label'>Modelo del vehículo</label>
 						<div className='input-group'>
@@ -164,6 +165,7 @@ const ParkingForm = () => {
 							className='form-control'
 							list='documents'
 							value={form.document !== undefined ? form.document : ''}
+							type='number'
 							name='document'
 							onChange={e => onChangeValue(e)}
 						/>
