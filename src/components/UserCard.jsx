@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import FaUser from '../assets/user-solid.svg';
+import { useNavigate } from 'react-router-dom';
 
 const UserCard = () => {
 	const { user, setUser, isLogin, setIsLogin } = useContext(UserContext);
-
+	const navigate = useNavigate();
 	const logout = () => {
 		setUser({
 			document: 0,
@@ -12,6 +13,7 @@ const UserCard = () => {
 			password: '',
 		});
 		setIsLogin(false);
+		navigate('/');
 	};
 
 	return (

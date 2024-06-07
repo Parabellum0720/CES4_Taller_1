@@ -10,10 +10,13 @@ const UserDetail = () => {
 	const [owned, setOwned] = useState([]);
 
 	useEffect(() => {
-		setOwned(vehicles.filter(vehicle => vehicle.document == parseInt(id)));
+		const userVehicles = vehicles?.filter(
+			vehicle => vehicle.document == parseInt(id),
+		);
+		setOwned(userVehicles);
 	}, []);
 
-	if (owned.length == 0) {
+	if (owned?.length == 0) {
 		return (
 			<section
 				style={{ height: '85vh' }}
@@ -44,7 +47,7 @@ const UserDetail = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{owned.map((vehicle, index) => (
+						{owned?.map((vehicle, index) => (
 							<tr key={index}>
 								<td>{vehicle.plate}</td>
 								<td>{vehicle.brand}</td>

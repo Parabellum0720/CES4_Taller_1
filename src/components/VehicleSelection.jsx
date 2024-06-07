@@ -24,11 +24,11 @@ const VehicleSelection = () => {
 				}
 			}
 		} else if (typeSearch == 'plate') {
-			const isFound = vehicles.filter(vehicle => vehicle.plate == search);
-			if (isFound.length == 1) {
+			const isFound = vehicles?.filter(vehicle => vehicle.plate == search);
+			if (isFound?.length == 1) {
 				setPlate(isFound[0].plate);
-				navigate('/');
-			} else if (isFound.length == 0) {
+				navigate(`/vehicle/${isFound[0].plate}`);
+			} else if (isFound?.length == 0) {
 				if (search !== '') {
 					alert(`${search} no esta registrado.`);
 				} else {

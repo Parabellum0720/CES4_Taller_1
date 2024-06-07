@@ -2,11 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import cell from '../assets/cell.svg';
 import vehicle from '../assets/vehicle.svg';
 import motorcycle from '../assets/motorcycle.svg';
-import { useNavigate } from 'react-router-dom';
 import { ParkingContext } from '../context/ParkingContext';
 
 const ParkingCell = ({ index, hasVehicle }) => {
-	const navigate = useNavigate();
 	const { onChangeCells, plate, addVehicleToCell, cellsDetails } =
 		useContext(ParkingContext);
 	const [isBike, setIsBike] = useState(false);
@@ -16,9 +14,7 @@ const ParkingCell = ({ index, hasVehicle }) => {
 	}, [cellsDetails]);
 
 	const onSubmit = () => {
-		if (hasVehicle) {
-			navigate(`/vehicle/${cellsDetails[index].plate}`);
-		} else if (!hasVehicle) {
+		if (!hasVehicle) {
 			if (plate) {
 				const plateExists = cellsDetails.filter(cell => cell.plate == plate);
 				if (plateExists.length == 0) {

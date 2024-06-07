@@ -15,10 +15,15 @@ const VehicleDetail = () => {
 	});
 
 	useEffect(() => {
-		setDetail(vehicles.filter(v => (v.plate = plate)));
+		const owned = vehicles?.filter(v => (v.plate = plate))[0];
+		setDetail(owned);
 	}, []);
 
-	if (detail.length == 0) {
+	useEffect(() => {
+		console.log('detail', detail);
+	}, [detail]);
+
+	if (detail?.length == 0) {
 		return (
 			<section
 				style={{ height: '85vh' }}

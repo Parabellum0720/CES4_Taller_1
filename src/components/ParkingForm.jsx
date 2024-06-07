@@ -2,14 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import { ParkingContext } from '../context/ParkingContext';
 import { UserContext } from '../context/UserContext'; // Asegúrate de importar el contexto de usuario
 import VehicleInput from './VehicleInput';
-// import { useNavigate } from 'react-router-dom';
 
 const years = Array.from(new Array(30), (val, index) => 2023 - index);
 const brands = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan'];
 const bykeBrands = ['Bajaj', 'AKT', 'Auteco', 'Royal Enfield'];
 const cylinder = ['100cc', '125cc', '150cc', '200cc', '+250cc'];
 const ParkingForm = () => {
-	// const navigate = useNavigate()
 	const { form, setForm, vehicleType, setVehicles, vehicles, setPlate } =
 		useContext(ParkingContext);
 	const { registeredUsers } = useContext(UserContext); // Obtener los usuarios registrados del contexto
@@ -58,13 +56,16 @@ const ParkingForm = () => {
 			}
 		}
 
-		const plateExists = vehicles.filter(vehicle => vehicle.plate == form.plate);
+		const plateExists = vehicles?.filter(
+			vehicle => vehicle.plate == form.plate,
+		);
+		console.log('plateExists', plateExists);
 		const documentExists = registeredUsers.filter(
 			user => user.document == parseInt(form.document),
 		);
-		if (plateExists.length > 0) {
+		if (plateExists?.length > 0) {
 			alert('La placa ya existe. Por favor, ingrese una placa única.');
-		} else if (plateExists.length == 0) {
+		} else if (plateExists?.length == 0 || plateExists == undefined) {
 			if (documentExists.length == 1) {
 				setVehicles([
 					...vehicles,

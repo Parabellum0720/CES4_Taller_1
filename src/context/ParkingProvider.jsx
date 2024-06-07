@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ParkingContext } from './ParkingContext';
 
 const ParkingProvider = ({ children }) => {
@@ -19,25 +19,20 @@ const ParkingProvider = ({ children }) => {
 	const [cellsDetails, setCellsDetails] = useState(
 		Array(cellsLength).fill({ plate: '' }),
 	);
-	const [vehicles, setVehicles] = useState([
-		{
-			plate: 'ASD123',
-			document: 101,
-			cc: '200CC',
-			model: '',
-			brand: 'PULSAR',
-		},
-	]);
+
+	const [vehicles, setVehicles] = useState([]);
 
 	const onChangeCells = index => {
 		setCells(cells.map((cell, i) => (i == index ? !cell : cell)));
 	};
 
 	const addVehicleToCell = index => {
-		const vehicle = vehicles.filter(v => v.plate == plate);
-		setCellsDetails(
-			cellsDetails.map((detail, i) => (i == index ? vehicle[0] : detail)),
-		);
+		const vehicle = vehicles?.filter(v => v.plate == plate);
+		if (vehicle != undefined) {
+			setCellsDetails(
+				cellsDetails.map((detail, i) => (i == index ? vehicle[0] : detail)),
+			);
+		}
 	};
 
 	return (
