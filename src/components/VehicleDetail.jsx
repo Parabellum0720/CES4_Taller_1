@@ -6,15 +6,19 @@ const VehicleDetail = () => {
 	const navigate = useNavigate();
 	const { plate } = useParams();
 	const { vehicles, setPlate } = useContext(ParkingContext);
-	const [vehicle, setVehicle] = useState(
-		vehicles.filter(v => (v.plate = plate)),
-	);
+	const [detail, setDetail] = useState({
+		plate: '',
+		document: null,
+		cc: '',
+		model: '',
+		brand: '',
+	});
 
 	useEffect(() => {
-		plate && setVehicle(vehicles.filter(v => (v.plate = plate)));
+		setDetail(vehicles.filter(v => (v.plate = plate)));
 	}, []);
 
-	if (!vehicle) {
+	if (detail.length == 0) {
 		return (
 			<section
 				style={{ height: '85vh' }}
@@ -35,24 +39,24 @@ const VehicleDetail = () => {
 			<div className='d-flex flex-column align-items-center'>
 				<h1>Detalles del vehículo</h1>
 				<div style={{ marginBottom: '1rem' }} className='license-plate'>
-					<span>{vehicle.plate.slice(0, 3)}</span>-
-					<span>{vehicle.plate.slice(3)}</span>
+					<span>{detail.plate?.slice(0, 3)}</span>-
+					<span>{detail.plate?.slice(3)}</span>
 				</div>
 				<p>
-					<strong>Documento:</strong> {vehicle.document}
+					<strong>Documento:</strong> {detail.document}
 				</p>
 				<p>
 					<strong>Marca: </strong>
-					{vehicle.brand}
+					{detail.brand}
 				</p>
-				{vehicle.cc && (
+				{detail.cc && (
 					<p>
-						<strong>CC:</strong> {vehicle.cc}
+						<strong>CC:</strong> {detail.cc}
 					</p>
 				)}
-				{vehicle.model && (
+				{detail.model && (
 					<p>
-						<strong>Modelo:</strong> {vehicle.model}
+						<strong>Modelo:</strong> {detail.model}
 					</p>
 				)}
 			</div>
@@ -60,7 +64,7 @@ const VehicleDetail = () => {
 				className='btn btn-success'
 				style={{ marginTop: '1rem' }}
 				onClick={() => {
-					setPlate(vehicle.plate);
+					setPlate(detail.plate);
 					navigate('/');
 				}}
 			>

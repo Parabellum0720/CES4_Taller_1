@@ -42,7 +42,7 @@ const ParkingForm = () => {
 				form.brand == ''
 			) {
 				alert('¡Diligencia todos los datos!');
-				setSearch('');
+
 				return false;
 			}
 		} else if (vehicleType == 'bike') {
@@ -53,7 +53,7 @@ const ParkingForm = () => {
 				form.brand == ''
 			) {
 				alert('¡Diligencia todos los datos!');
-				setSearch('');
+
 				return false;
 			}
 		}
@@ -62,10 +62,10 @@ const ParkingForm = () => {
 		const documentExists = registeredUsers.filter(
 			user => user.document == parseInt(form.document),
 		);
-		if (plateExists.lenght == 1) {
+		if (plateExists.length > 0) {
 			alert('La placa ya existe. Por favor, ingrese una placa única.');
-		} else if (plateExists.lenght == 0) {
-			if (documentExists.lenght == 1) {
+		} else if (plateExists.length == 0) {
+			if (documentExists.length == 1) {
 				setVehicles([
 					...vehicles,
 					{
@@ -78,7 +78,7 @@ const ParkingForm = () => {
 				]);
 				const type = vehicleType == 'car' ? 'el vehiculo' : 'la moto';
 				alert(`Se ha registrado con exito ${type} con placa ${form.plate}`);
-			} else if (documentExists.lenght == 0) {
+			} else if (documentExists.length == 0) {
 				alert('El documento ingresado no existe');
 			}
 		}
@@ -98,7 +98,7 @@ const ParkingForm = () => {
 			>
 				<div className='mb-3'>
 					<label className='form-label'>Número de placa:</label>
-					<VehicleInput search={search} setSearch={setSearch} />
+					<VehicleInput setSearch={setSearch} />
 				</div>
 				{vehicleType == 'bike' && (
 					<div className='mb-3'>

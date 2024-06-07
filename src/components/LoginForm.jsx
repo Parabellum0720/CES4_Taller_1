@@ -39,7 +39,7 @@ const LoginForm = ({ type }) => {
 			);
 		} else if (type == 'signup') {
 			foundUser = registeredUsers.filter(
-				registeredUser => registeredUser.email == form.email,
+				registeredUser => registeredUser.document == form.document,
 			);
 		}
 

@@ -21,7 +21,7 @@ const ParkingCell = ({ index, hasVehicle }) => {
 		} else if (!hasVehicle) {
 			if (plate) {
 				const plateExists = cellsDetails.filter(cell => cell.plate == plate);
-				if (plateExists.lenght == 1) {
+				if (plateExists.length == 0) {
 					onChangeCells(index);
 					addVehicleToCell(index);
 				} else {

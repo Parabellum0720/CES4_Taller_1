@@ -1,16 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { ParkingContext } from '../context/ParkingContext';
 
-const VehicleInput = ({ search = '', setSearch }) => {
+const VehicleInput = ({ setSearch }) => {
 	const { vehicles } = useContext(ParkingContext);
-
-	useEffect(() => {
-		if (search == '') {
-			setLetters('');
-			setNumbers('');
-		}
-	}, [search]);
-
 	const [letters, setLetters] = useState('');
 	const [numbers, setNumbers] = useState('');
 

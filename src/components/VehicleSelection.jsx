@@ -11,29 +11,29 @@ const VehicleSelection = () => {
 	const [search, setSearch] = useState('');
 	const [document, setDocument] = useState('');
 
-	const onSubmit = () => {
-		const isFound = vehicles.filter(vehicle => vehicle.plate == search);
-		if (isFound.lenght == 1) {
-			setPlate(isFound[0].plate);
-			navigate('/');
-		} else if (isFound.lenght == 0) {
-			if (search !== '') {
-				alert(`${search} no esta registrado.`);
-			} else {
-				alert('Debes diligenciar la información');
+	const onSearch = typeSearch => {
+		if (typeSearch == 'document') {
+			if (document) {
+				const documentExists = registeredUsers.filter(
+					user => user.document == parseInt(document),
+				);
+				if (documentExists.length == 1) {
+					navigate(`/user/${documentExists[0].document}`);
+				} else if (documentExists.length == 0) {
+					alert(`El documento ${document} ingresado no existe`);
+				}
 			}
-		}
-	};
-
-	const onSearch = () => {
-		if (document) {
-			const documentExists = registeredUsers.filter(
-				user => user.document == parseInt(document),
-			);
-			if (documentExists.lenght == 1) {
-				navigate(`/user/${documentExists[0].document}`);
-			} else if (documentExists.lenght == 0) {
-				alert(`El documento ${document} ingresado no existe`);
+		} else if (typeSearch == 'plate') {
+			const isFound = vehicles.filter(vehicle => vehicle.plate == search);
+			if (isFound.length == 1) {
+				setPlate(isFound[0].plate);
+				navigate('/');
+			} else if (isFound.length == 0) {
+				if (search !== '') {
+					alert(`${search} no esta registrado.`);
+				} else {
+					alert('Debes diligenciar la información');
+				}
 			}
 		}
 	};
@@ -85,7 +85,7 @@ const VehicleSelection = () => {
 						/>
 					</div>
 					<button
-						onClick={onSearch}
+						onClick={() => onSearch('document')}
 						style={{ marginTop: '1rem' }}
 						className='btn btn-success'
 					>
@@ -97,11 +97,11 @@ const VehicleSelection = () => {
 					className='d-flex flex-column align-items-center'
 				>
 					<label className='form-label'>Ingresa una placa</label>
-					<VehicleInput search={search} setSearch={setSearch} />
+					<VehicleInput setSearch={setSearch} />
 					<button
 						style={{ marginTop: '1rem' }}
 						className='btn btn-success'
-						onClick={onSubmit}
+						onClick={() => onSearch('plate')}
 					>
 						Buscar
 					</button>
