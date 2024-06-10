@@ -75,7 +75,6 @@ const ParkingForm = () => {
 		const plateExists = vehicles?.filter(
 			vehicle => vehicle.plate == form.plate,
 		);
-		console.log('plateExists', plateExists);
 		const documentExists = registeredUsers.filter(
 			user => user.document == parseInt(form.document),
 		);
