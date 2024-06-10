@@ -2,14 +2,24 @@ import { useContext, useEffect, useState } from 'react';
 import { ParkingContext } from '../context/ParkingContext';
 import { UserContext } from '../context/UserContext'; // Asegúrate de importar el contexto de usuario
 import VehicleInput from './VehicleInput';
+import { useNavigate } from 'react-router-dom';
 
 const years = Array.from(new Array(30), (val, index) => 2023 - index);
 const brands = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan'];
 const bykeBrands = ['Bajaj', 'AKT', 'Auteco', 'Royal Enfield'];
 const cylinder = ['100cc', '125cc', '150cc', '200cc', '+250cc'];
 const ParkingForm = () => {
-	const { form, setForm, vehicleType, setVehicles, vehicles, setPlate } =
-		useContext(ParkingContext);
+	const navigate = useNavigate();
+	const {
+		form,
+		setForm,
+		vehicleType,
+		setVehicles,
+		vehicles,
+		setPlate,
+		validatePlate,
+		setVehicleType,
+	} = useContext(ParkingContext);
 	const { registeredUsers } = useContext(UserContext); // Obtener los usuarios registrados del contexto
 	const [search, setSearch] = useState('');
 
@@ -32,6 +42,12 @@ const ParkingForm = () => {
 
 	const submitInfo = e => {
 		e.preventDefault();
+
+		if (!validatePlate(form.plate, vehicleType)) {
+			alert('El formato de la placa no es válido.');
+			return;
+		}
+
 		if (vehicleType == 'car') {
 			if (
 				form.plate == '' ||
@@ -79,6 +95,8 @@ const ParkingForm = () => {
 				]);
 				const type = vehicleType == 'car' ? 'el vehiculo' : 'la moto';
 				alert(`Se ha registrado con exito ${type} con placa ${form.plate}`);
+				setVehicleType('');
+				navigate('/vehicle');
 			} else if (documentExists.length == 0) {
 				alert('El documento ingresado no existe');
 			}

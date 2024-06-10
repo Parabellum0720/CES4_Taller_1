@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ParkingContext } from '../context/ParkingContext';
 import ParkingLot from '../components/ParkingLot';

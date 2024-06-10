@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ParkingContext } from './ParkingContext';
 
 const ParkingProvider = ({ children }) => {
 	const [form, setForm] = useState({
-		plate: '',
 		document: null,
+		plate: '',
 		cc: '',
 		model: '',
 		brand: '',
@@ -22,15 +21,28 @@ const ParkingProvider = ({ children }) => {
 
 	const [vehicles, setVehicles] = useState([]);
 
+	const validatePlate = (plate, type) => {
+		if (type === 'car') {
+			return /^[A-Z]{3}\d{3}$/.test(plate);
+		} else if (type === 'bike') {
+			return /^[A-Z]{3}\d{2}[A-Z]$/.test(plate);
+		}
+		return false;
+	};
+
 	const onChangeCells = index => {
 		setCells(cells.map((cell, i) => (i == index ? !cell : cell)));
 	};
 
 	const addVehicleToCell = index => {
 		const vehicle = vehicles?.filter(v => v.plate == plate);
-		if (vehicle != undefined) {
+		if (vehicle !== undefined) {
 			setCellsDetails(
-				cellsDetails.map((detail, i) => (i == index ? vehicle[0] : detail)),
+				cellsDetails.map((detail, i) =>
+					i == index
+						? { ...vehicle[0], parkingDate: new Date().toISOString() }
+						: detail,
+				),
 			);
 		}
 	};
@@ -52,6 +64,7 @@ const ParkingProvider = ({ children }) => {
 				plate,
 				setPlate,
 				addVehicleToCell,
+				validatePlate,
 			}}
 		>
 			{children}

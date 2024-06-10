@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ParkingContext } from '../context/ParkingContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const VehicleDetail = () => {
 	const navigate = useNavigate();
-	const { plate } = useParams();
-	const { vehicles, setPlate } = useContext(ParkingContext);
+	const { vehicles, setPlate, plate, cellsDetails } =
+		useContext(ParkingContext);
+	const [isParking, setIsParking] = useState(false);
 	const [detail, setDetail] = useState({
 		plate: '',
 		document: null,
@@ -15,13 +16,11 @@ const VehicleDetail = () => {
 	});
 
 	useEffect(() => {
-		const owned = vehicles?.filter(v => (v.plate = plate))[0];
-		setDetail(owned);
+		setDetail(vehicles.filter(v => v.plate === plate)[0]);
+		setIsParking(
+			cellsDetails.filter(c => c.plate === plate)[0] != undefined && true,
+		);
 	}, []);
-
-	useEffect(() => {
-		console.log('detail', detail);
-	}, [detail]);
 
 	if (detail?.length == 0) {
 		return (
@@ -65,15 +64,17 @@ const VehicleDetail = () => {
 					</p>
 				)}
 			</div>
+
 			<button
 				className='btn btn-success'
 				style={{ marginTop: '1rem' }}
 				onClick={() => {
-					setPlate(detail.plate);
-					navigate('/');
+					!isParking && setPlate(detail.plate);
+					!isParking && navigate('/');
+					isParking && navigate('/vehicle');
 				}}
 			>
-				Parquear
+				{!isParking ? 'Parquear' : 'Volver'}
 			</button>
 		</section>
 	);
