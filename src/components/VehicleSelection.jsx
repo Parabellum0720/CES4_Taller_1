@@ -49,7 +49,10 @@ const VehicleSelection = () => {
 					<button
 						style={{ width: '150px' }}
 						type='button'
-						onClick={() => setVehicleType('car')}
+						onClick={() => {
+							setVehicleType('car');
+							navigate('/vehicle/form');
+						}}
 						className='btn btn-success mx-2'
 					>
 						Carro
@@ -57,7 +60,10 @@ const VehicleSelection = () => {
 					<button
 						style={{ width: '150px' }}
 						type='button'
-						onClick={() => setVehicleType('bike')}
+						onClick={() => {
+							setVehicleType('bike');
+							navigate('/vehicle/form');
+						}}
 						className='btn btn-danger mx-2'
 					>
 						Moto

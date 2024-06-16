@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ParkingPage from './pages/ParkingPage';
 import VehiclePage from './pages/VehiclePage';
+import VehicleFormPage from './pages/VehicleFormPage';
 
 const App = () => {
 	const { isLogin } = useContext(UserContext);
@@ -50,6 +51,7 @@ const App = () => {
 							<Route path='/users' element={<UsersPage />} />
 							<Route path='/user/:id' element={<UserDetail />} />
 							<Route path='/vehicle' element={<VehiclePage />} />
+							<Route path='/vehicle/form' element={<VehicleFormPage />} />
 							<Route path='/vehicle/:plate' element={<VehicleDetail />} />
 							<Route path='/*' element={<NotFound />} />
 						</Routes>

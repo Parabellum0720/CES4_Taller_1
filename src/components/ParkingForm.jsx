@@ -22,8 +22,13 @@ const ParkingForm = () => {
 	} = useContext(ParkingContext);
 	const { registeredUsers } = useContext(UserContext); // Obtener los usuarios registrados del contexto
 	const [search, setSearch] = useState('');
+	const [brandSelect, serBrandSelect] = useState(
+		vehicleType == 'car' ? brands : bykeBrands,
+	);
 
-	const brandSelect = vehicleType == 'car' ? brands : bykeBrands;
+	useEffect(() => {
+		serBrandSelect(vehicleType == 'car' ? brands : bykeBrands);
+	}, [vehicleType]);
 
 	useEffect(() => {
 		setForm({
@@ -120,7 +125,7 @@ const ParkingForm = () => {
 				</div>
 				{vehicleType == 'bike' && (
 					<div className='mb-3'>
-						<label className='form-label'>Marca del vehículo</label>
+						<label className='form-label'>Cilindraje de la motocicleta</label>
 						<div className='input-group'>
 							<select
 								className='form-select'
@@ -128,7 +133,7 @@ const ParkingForm = () => {
 								name='cc'
 								onChange={e => onChangeValue(e)}
 							>
-								<option value=''>Seleccione una marca</option>
+								<option value=''>Seleccione un cilindraje</option>
 								{cylinder.map((cc, index) => (
 									<option key={index} value={cc}>
 										{cc}
@@ -159,7 +164,9 @@ const ParkingForm = () => {
 					</div>
 				)}
 				<div className='mb-3'>
-					<label className='form-label'>Marca del vehículo</label>
+					<label className='form-label'>
+						Marca {vehicleType == 'car' ? 'del vehiculo' : 'de la moto'}
+					</label>
 					<div className='input-group'>
 						<select
 							className='form-select'

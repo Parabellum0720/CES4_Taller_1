@@ -1,14 +1,14 @@
-import VehicleSelection from '../components/VehicleSelection';
+import ParkingForm from '../components/ParkingForm';
 
-const VehiclePage = () => {
+const VehicleFormPage = () => {
 	return (
 		<section
 			style={{ height: '80vh' }}
 			className='d-flex flex-column justify-content-center align-items-center'
 		>
-			<VehicleSelection />
+			<ParkingForm />
 		</section>
 	);
 };
 
-export default VehiclePage;
+export default VehicleFormPage;
